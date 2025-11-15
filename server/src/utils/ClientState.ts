@@ -1,6 +1,7 @@
 import path from "path";
 import { getHomeDir } from "../../../utils/helper";
 import FileDirManager from "./FileDirManager";
+import { LocFile } from "./types";
 
 const basePath = getHomeDir();
 
@@ -31,6 +32,15 @@ class ClientState {
 
     const files = this.fileDirManager.getPathFiles(this.currentPath);
     return { files, isChild };
+  }
+
+  removeFile(file: LocFile | null) {
+    if (file) {
+      const filename = file.name;
+      const pathToDelete = path.join(this.currentPath, filename);
+      return this.fileDirManager.removeItem(pathToDelete, file.type);
+    }
+    return 0;
   }
 }
 

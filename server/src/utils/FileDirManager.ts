@@ -1,6 +1,5 @@
-import { readdirSync, createWriteStream } from "fs";
+import { readdirSync, rmSync, unlinkSync } from "fs";
 // import archiver from "archiver";
-import { existsSync, mkdirSync } from "fs";
 import { FILETYPE } from "../../../utils/types";
 
 class FileDirManager {
@@ -20,6 +19,23 @@ class FileDirManager {
       return formattedFiles;
     } catch (err: any) {
       return null;
+    }
+  }
+
+  async removeItem(pathToDelete: string, fileType: FILETYPE) {
+    console.log("To Remove: ", pathToDelete, fileType);
+    try {
+      if (fileType === FILETYPE.FILE) {
+        unlinkSync(pathToDelete);
+      } else {
+        rmSync(pathToDelete, {
+          recursive: true,
+        });
+      }
+      return 1;
+    } catch (err) {
+      console.log(err);
+      return 0;
     }
   }
 
