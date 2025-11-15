@@ -1,0 +1,24 @@
+export enum FILETYPE {
+  "FILE" = 0,
+  "DIR" = 1,
+}
+
+export enum WSRequestType {
+  "INIT",
+  "FETCH",
+  "DOWNLOAD",
+  "ADD",
+  "DELETE",
+}
+
+export type WSRequest = {
+  type: WSRequestType;
+  dir: string;
+  data: {
+    path?: string;
+    filesToDownload?: FileViewType[];
+  };
+};
+
+export type FileViewType = { filename: string; filetype: FILETYPE };
+
