@@ -1,12 +1,16 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, FilePlus, FolderPlus } from "lucide-react";
 import useExpoStore from "~/store/useExpoStore";
 import { useWebSocketStore } from "~/store/useWebsocketStore";
 import { formatText } from "~/utils/helper";
+import AddItemModal from "./AddItemModal";
+import { DialogTrigger } from "./ui/dialog";
+import { FILETYPE } from "~/utils/types";
+import Searcher from "./Searcher";
 
 export default function Header() {
-  const { currentPath, goToPrevPath, isPathChild } = useExpoStore();
+  const { currentPath, goToPrevPath, isPathChild, addItem } = useExpoStore();
   const { connectionStatus } = useWebSocketStore();
 
   const statusColor =
@@ -24,24 +28,21 @@ export default function Header() {
     >
       <div className="flex items-center gap-2">
         <div className={`w-3 h-3 rounded-full ${statusColor} animate-pulse`} />
-        <span
-          className="text-sm text-gray-700 tracking-wide capitalize
-          dark:text-gray-300"
-        >
+        <span className="text-sm text-gray-700 capitalize dark:text-gray-300">
           {connectionStatus}
         </span>
       </div>
 
       <div className="text-sm text-gray-600 dark:text-gray-400 break-all">
         <span className="font-semibold text-gray-900 dark:text-gray-200">
-          Current Path:{" "}
-        </span>
+          Current Path:
+        </span>{" "}
         <span className="text-blue-600 dark:text-blue-400 font-medium">
           {formatText(currentPath, 30)}
         </span>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center gap-3">
         <button
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border 
             ${
@@ -54,7 +55,50 @@ export default function Header() {
         >
           <ArrowLeft size={18} />
         </button>
+
+        <AddItemModal
+          type="file"
+          createItem={(filename) => {
+            addItem({
+              type: FILETYPE.FILE,
+              name: filename,
+            });
+          }}
+        >
+          <DialogTrigger
+            className="
+              flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all
+              bg-blue-600 text-white hover:bg-blue-700 shadow
+              dark:bg-blue-500 dark:hover:bg-blue-400
+            "
+          >
+            <FilePlus size={18} />
+            Add File
+          </DialogTrigger>
+        </AddItemModal>
+
+        <AddItemModal
+          type="folder"
+          createItem={(folderName) => {
+            addItem({
+              type: FILETYPE.DIR,
+              name: folderName,
+            });
+          }}
+        >
+          <DialogTrigger
+            className="
+              flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all
+              bg-green-600 text-white hover:bg-green-700 shadow
+              dark:bg-green-500 dark:hover:bg-green-400
+            "
+          >
+            <FolderPlus size={18} />
+            Add Folder
+          </DialogTrigger>
+        </AddItemModal>
       </div>
+      <Searcher />
     </div>
   );
 }

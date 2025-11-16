@@ -1,6 +1,6 @@
 export enum FILETYPE {
-  "FILE" = 0,
-  "DIR" = 1,
+  "FILE",
+  "DIR",
 }
 
 export enum SelectionAction {
@@ -22,11 +22,16 @@ export enum WSRequestType {
 
 export type WSRequest = {
   type: WSRequestType;
-  dir: string;
   data: {
-    path?: string;
-    filesToDownload?: FileViewType[];
+    dir?: string;
+    file?: LocFile | null;
+    itemToBeAdded?: ItemToAdd;
   };
+};
+
+export type ItemToAdd = {
+  type: FILETYPE;
+  name: string;
 };
 
 export type FileViewType = { filename: string; filetype: FILETYPE };

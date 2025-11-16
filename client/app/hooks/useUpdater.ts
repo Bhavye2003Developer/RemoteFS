@@ -5,8 +5,15 @@ import { useWebSocketStore } from "~/store/useWebsocketStore";
 import { WSRequestType } from "~/utils/types";
 
 const useUpdater = (websocketService: RefObject<WebsocketService>) => {
-  const { updatePath, updatePathFiles, currentDir, updateIsPathChild, step } =
-    useExpoStore();
+  const {
+    updatePath,
+    updatePathFiles,
+    currentDir,
+    updateIsPathChild,
+    step,
+    fileToDelete,
+    itemToBeAdded,
+  } = useExpoStore();
   const { connectionStatus, message } = useWebSocketStore();
 
   useEffect(() => {
@@ -14,11 +21,35 @@ const useUpdater = (websocketService: RefObject<WebsocketService>) => {
       websocketService.current.sendMessage(
         JSON.stringify({
           type: WSRequestType.FETCH,
-          dir: currentDir,
+          data: {
+            dir: currentDir,
+          },
         })
       );
     }
   }, [connectionStatus, currentDir, step]);
+
+  useEffect(() => {
+    websocketService.current.sendMessage(
+      JSON.stringify({
+        type: WSRequestType.DELETE,
+        data: {
+          file: fileToDelete,
+        },
+      })
+    );
+  }, [fileToDelete]);
+
+  useEffect(() => {
+    websocketService.current.sendMessage(
+      JSON.stringify({
+        type: WSRequestType.ADD,
+        data: {
+          itemToBeAdded,
+        },
+      })
+    );
+  }, [itemToBeAdded]);
 
   useEffect(() => {
     const parsedMessage = JSON.parse(message);

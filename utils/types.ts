@@ -13,12 +13,11 @@ export enum WSRequestType {
 
 export type WSRequest = {
   type: WSRequestType;
-  dir: string;
   data: {
-    path?: string;
-    filesToDownload?: FileViewType[];
+    // path?: string;
+    // filesToDownload?: FileViewType[];
+    dir?: string;
   };
 };
 
 export type FileViewType = { filename: string; filetype: FILETYPE };
-
