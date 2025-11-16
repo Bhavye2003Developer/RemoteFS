@@ -25,7 +25,13 @@ export type WSRequest = {
   data: {
     dir?: string;
     file?: LocFile | null;
+    itemToBeAdded?: ItemToAdd;
   };
+};
+
+export type ItemToAdd = {
+  type: FILETYPE;
+  name: string;
 };
 
 export type FileViewType = { filename: string; filetype: FILETYPE };

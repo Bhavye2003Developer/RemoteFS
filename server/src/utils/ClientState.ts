@@ -1,7 +1,7 @@
 import path from "path";
 import { getHomeDir } from "../../../utils/helper";
 import FileDirManager from "./FileDirManager";
-import { LocFile } from "./types";
+import { ItemToAdd, LocFile } from "./types";
 
 const basePath = getHomeDir();
 
@@ -41,6 +41,11 @@ class ClientState {
       return this.fileDirManager.removeItem(pathToDelete, file.type);
     }
     return 0;
+  }
+
+  async addItem(item: ItemToAdd) {
+    const status = this.fileDirManager.addItem(this.currentPath, item);
+    return status;
   }
 }
 

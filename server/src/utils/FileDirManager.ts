@@ -1,6 +1,16 @@
-import { readdirSync, rmSync, unlinkSync } from "fs";
+import {
+  closeSync,
+  existsSync,
+  mkdirSync,
+  openSync,
+  readdirSync,
+  rmSync,
+  unlinkSync,
+} from "fs";
 // import archiver from "archiver";
 import { FILETYPE } from "../../../utils/types";
+import { ItemToAdd } from "./types";
+import path from "path";
 
 class FileDirManager {
   async getPathFiles(formattedPath: string) {
@@ -32,6 +42,23 @@ class FileDirManager {
           recursive: true,
         });
       }
+      return 1;
+    } catch (err) {
+      console.log("ERROR: ", err);
+      return 0;
+    }
+  }
+
+  addItem(currentPath: string, item: ItemToAdd) {
+    const { name, type } = item;
+    const pathToCreate = path.join(currentPath, name);
+    try {
+      if (existsSync(pathToCreate)) {
+        console.log("Already exists");
+        return 1;
+      }
+      if (type === FILETYPE.FILE) closeSync(openSync(pathToCreate, "w"));
+      else mkdirSync(pathToCreate);
       return 1;
     } catch (err) {
       console.log(err);
