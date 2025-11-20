@@ -1,0 +1,30 @@
+{
+  "name": "remote_explorer",
+  "version": "1.0.0",
+  "description": "It is a explorer which runs on different devices on LAN for showing desktop based filesystem",
+  "homepage": "https://github.com/Bhavye2003Developer/Remotely_Explorer#readme",
+  "bugs": {
+    "url": "https://github.com/Bhavye2003Developer/Remotely_Explorer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bhavye2003Developer/Remotely_Explorer.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "dev": "npm-run-all -p dev:server dev:client"
+  },
+  "workspaces": [
+    "packages/server",
+    "packages/client"
+  ],
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
