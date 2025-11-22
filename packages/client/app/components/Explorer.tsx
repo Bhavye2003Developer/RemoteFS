@@ -1,23 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import FilesViewer from "./FilesViewer";
 import Header from "./Header";
 import useExpoStore from "~/store/useExpoStore";
-import WebsocketService from "~/service/WebsocketService";
 import useUpdater from "~/hooks/useUpdater";
 
 const Explorer = () => {
   const { pathFiles } = useExpoStore();
 
-  const websocketService = useRef(new WebsocketService());
-
-  useUpdater(websocketService);
-
-  useEffect(() => {
-    websocketService.current.connect();
-    return () => websocketService.current.disconnect();
-  }, []);
+  useUpdater();
 
   return (
     <div className="min-h-screen p-1 wrap-anywhere">

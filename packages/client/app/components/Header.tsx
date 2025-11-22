@@ -2,23 +2,18 @@
 
 import { ArrowLeft, FilePlus, FolderPlus } from "lucide-react";
 import useExpoStore from "~/store/useExpoStore";
-import { useWebSocketStore } from "~/store/useWebsocketStore";
 import { formatText } from "~/utils/helper";
 import AddItemModal from "./AddItemModal";
 import { DialogTrigger } from "./ui/dialog";
-import { FILETYPE } from "~/utils/types";
+import { FILETYPE, WSRequestType } from "~/utils/types";
 import Searcher from "./Searcher";
+import useWebsocketStore from "~/store/useWebsocketStore";
 
 export default function Header() {
-  const { currentPath, goToPrevPath, isPathChild, addItem } = useExpoStore();
-  const { connectionStatus } = useWebSocketStore();
+  const { currentPath, goToPrevPath, isPathChild } = useExpoStore();
+  const { isConnected, sendMessage } = useWebsocketStore();
 
-  const statusColor =
-    connectionStatus === "connected"
-      ? "bg-green-500"
-      : connectionStatus === "connecting"
-        ? "bg-yellow-500"
-        : "bg-red-500";
+  const statusColor = isConnected ? "bg-green-500" : "bg-red-500";
 
   return (
     <div
@@ -29,7 +24,7 @@ export default function Header() {
       <div className="flex items-center gap-2">
         <div className={`w-3 h-3 rounded-full ${statusColor} animate-pulse`} />
         <span className="text-sm text-gray-700 capitalize dark:text-gray-300">
-          {connectionStatus}
+          {isConnected ? "connected" : "disconnected"}
         </span>
       </div>
 
@@ -59,9 +54,14 @@ export default function Header() {
         <AddItemModal
           type="file"
           createItem={(filename) => {
-            addItem({
-              type: FILETYPE.FILE,
-              name: filename,
+            sendMessage({
+              type: WSRequestType.ADD,
+              data: {
+                itemToBeAdded: {
+                  type: FILETYPE.FILE,
+                  name: filename,
+                },
+              },
             });
           }}
         >
@@ -80,9 +80,14 @@ export default function Header() {
         <AddItemModal
           type="folder"
           createItem={(folderName) => {
-            addItem({
-              type: FILETYPE.DIR,
-              name: folderName,
+            sendMessage({
+              type: WSRequestType.ADD,
+              data: {
+                itemToBeAdded: {
+                  type: FILETYPE.DIR,
+                  name: folderName,
+                },
+              },
             });
           }}
         >

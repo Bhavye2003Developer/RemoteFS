@@ -7,8 +7,6 @@ interface ExpoStore {
   currentDir: string;
   isPathChild: boolean;
   step: number;
-  fileToDelete: LocFile | null;
-  itemToBeAdded: ItemToAdd | null;
   searchText: string;
 
   updatePath: (updatedPath: string) => void;
@@ -16,8 +14,6 @@ interface ExpoStore {
   goToPrevPath: () => void;
   changeDir: (dir: string) => void;
   updateIsPathChild: (isPathChild: boolean) => void;
-  updateFileToDelete: (file: LocFile | null) => void;
-  addItem: (itemToBeAdded: ItemToAdd) => void;
   updateSearchText: (text: string) => void;
 }
 
@@ -27,8 +23,6 @@ const useExpoStore = create<ExpoStore>((set, get) => ({
   currentDir: "/",
   isPathChild: false,
   step: 0,
-  fileToDelete: null,
-  itemToBeAdded: null,
   searchText: "",
 
   updatePath(updatedPath) {
@@ -57,12 +51,6 @@ const useExpoStore = create<ExpoStore>((set, get) => ({
   },
   updateIsPathChild(isPathChild) {
     set((state) => ({ ...state, isPathChild }));
-  },
-  updateFileToDelete(file) {
-    set((state) => ({ ...state, fileToDelete: file }));
-  },
-  addItem(itemToBeAdded) {
-    set((state) => ({ ...state, itemToBeAdded: itemToBeAdded }));
   },
   updateSearchText(text) {
     set((state) => ({ ...state, searchText: text }));

@@ -2,11 +2,13 @@ import { DownloadIcon, File, Folder } from "lucide-react";
 import useExpoStore from "~/store/useExpoStore";
 import { formatText } from "~/utils/helper";
 import DeleteItemBtn from "./DeleteItemBtn";
-import { FILETYPE } from "~/utils/types";
+import { FILETYPE, WSRequestType } from "~/utils/types";
+import useWebsocketStore from "~/store/useWebsocketStore";
 
 export default function FilesViewer() {
-  const { pathFiles, changeDir, updateFileToDelete, searchText } =
-    useExpoStore();
+  const { pathFiles, changeDir, searchText } = useExpoStore();
+
+  const { sendMessage } = useWebsocketStore();
 
   return (
     <div className="space-y-2 m-2">
@@ -57,7 +59,14 @@ export default function FilesViewer() {
 
               <DeleteItemBtn
                 filename={file.name}
-                deleteItem={() => updateFileToDelete(file)}
+                deleteItem={() => {
+                  sendMessage({
+                    type: WSRequestType.DELETE,
+                    data: {
+                      file: file,
+                    },
+                  });
+                }}
               />
             </div>
           ))}

@@ -1,55 +1,30 @@
-import { useEffect, type RefObject } from "react";
-import type WebsocketService from "~/service/WebsocketService";
+import { useEffect } from "react";
 import useExpoStore from "~/store/useExpoStore";
-import { useWebSocketStore } from "~/store/useWebsocketStore";
+import useWebsocketStore from "~/store/useWebsocketStore";
 import { WSRequestType } from "~/utils/types";
 
-const useUpdater = (websocketService: RefObject<WebsocketService>) => {
-  const {
-    updatePath,
-    updatePathFiles,
-    currentDir,
-    updateIsPathChild,
-    step,
-    fileToDelete,
-    itemToBeAdded,
-  } = useExpoStore();
-  const { connectionStatus, message } = useWebSocketStore();
+const useUpdater = () => {
+  const { updatePath, updatePathFiles, currentDir, updateIsPathChild, step } =
+    useExpoStore();
+
+  const { connect, disconnect, isConnected, message, sendMessage } =
+    useWebsocketStore();
 
   useEffect(() => {
-    if (connectionStatus === "connected") {
-      websocketService.current.sendMessage(
-        JSON.stringify({
-          type: WSRequestType.FETCH,
-          data: {
-            dir: currentDir,
-          },
-        })
-      );
+    connect();
+    return disconnect;
+  }, []);
+
+  useEffect(() => {
+    if (isConnected) {
+      sendMessage({
+        type: WSRequestType.FETCH,
+        data: {
+          dir: currentDir,
+        },
+      });
     }
-  }, [connectionStatus, currentDir, step]);
-
-  useEffect(() => {
-    websocketService.current.sendMessage(
-      JSON.stringify({
-        type: WSRequestType.DELETE,
-        data: {
-          file: fileToDelete,
-        },
-      })
-    );
-  }, [fileToDelete]);
-
-  useEffect(() => {
-    websocketService.current.sendMessage(
-      JSON.stringify({
-        type: WSRequestType.ADD,
-        data: {
-          itemToBeAdded,
-        },
-      })
-    );
-  }, [itemToBeAdded]);
+  }, [isConnected, currentDir, step]);
 
   useEffect(() => {
     const parsedMessage = JSON.parse(message);
