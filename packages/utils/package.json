@@ -1,0 +1,21 @@
+{
+  "name": "@remotely/utils",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "exports": {
+    "./types": "./src/types.ts",
+    "./helpers": "./src/helper.ts",
+    "./constants": "./src/constants.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.1",
+    "typescript": "^5.9.3"
+  }
+}

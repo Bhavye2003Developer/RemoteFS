@@ -1,8 +1,7 @@
 import path from "path";
 import FileDirManager from "./FileDirManager";
-import { ItemToAdd, LocFile } from "./types";
 import { getHomeDir } from "./helper";
-import { FSWatcher, watch } from "chokidar";
+import { ItemToAdd, LocFile } from "@remotely/utils/types";
 
 const basePath = getHomeDir();
 
@@ -11,11 +10,10 @@ class ClientState {
   currentPath = basePath;
   pathStack = [this.currentPath];
   fileDirManager = new FileDirManager();
-  watcher: null | FSWatcher = null;
+  // watcher: null | FSWatcher = null;
 
   constructor(ip: string | undefined) {
     this.IP = ip || "....";
-    console.log("Client with IP: ", this.IP);
   }
 
   fetchFiles(dir: string) {
@@ -30,7 +28,6 @@ class ClientState {
     }
 
     const isChild = this.pathStack.length > 1;
-    console.log(this.pathStack, this.currentPath);
 
     const files = this.fileDirManager.getPathFiles(this.currentPath);
 
@@ -39,7 +36,6 @@ class ClientState {
     //   depth: 0,
     //   ignoreInitial: true,
     // }).on("all", () => {
-    //   console.log("changed", this.currentPath);
     // });
 
     return { files, isChild };

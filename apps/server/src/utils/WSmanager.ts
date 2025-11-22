@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 import ClientState from "./ClientState";
-import { WSRequestType } from "./types";
+import { WSRequestType } from "@remotely/utils/types";
 
 class WSmanager {
   ws: WebSocket;

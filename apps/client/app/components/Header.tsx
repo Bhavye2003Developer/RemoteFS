@@ -2,13 +2,14 @@
 
 import { ArrowLeft, FilePlus, FolderPlus, UploadCloud } from "lucide-react";
 import useExpoStore from "~/store/useExpoStore";
-import { formatText } from "~/utils/helper";
 import AddItemModal from "./AddItemModal";
 import { DialogTrigger } from "./ui/dialog";
-import { FILETYPE, WSRequestType } from "~/utils/types";
 import Searcher from "./Searcher";
 import useWebsocketStore from "~/store/useWebsocketStore";
 import { useRef } from "react";
+import { FILETYPE, WSRequestType } from "@remotely/utils/types";
+import { formatText } from "@remotely/utils/helpers";
+import { SERVER_PORT, SYSTEM_IP } from "@remotely/utils/constants";
 
 export default function Header() {
   const { currentPath, goToPrevPath, isPathChild } = useExpoStore();
@@ -28,7 +29,7 @@ export default function Header() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/upload?path=${encodeURIComponent(currentPath)}`,
+        `http://${SYSTEM_IP}:${SERVER_PORT}/upload?path=${encodeURIComponent(currentPath)}`,
         {
           method: "POST",
           body: formData,

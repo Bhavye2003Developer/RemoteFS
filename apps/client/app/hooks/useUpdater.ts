@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useExpoStore from "~/store/useExpoStore";
 import useWebsocketStore from "~/store/useWebsocketStore";
-import { WSRequestType } from "~/utils/types";
+import { WSRequestType } from "@remotely/utils/types";
 
 const useUpdater = () => {
   const {
@@ -34,7 +34,7 @@ const useUpdater = () => {
 
   useEffect(() => {
     const parsedMessage = JSON.parse(message);
-    console.log(parsedMessage);
+    // console.log(parsedMessage);
     if (parsedMessage.reqType === WSRequestType.FETCH) {
       const path = parsedMessage.path;
       updatePath(path);

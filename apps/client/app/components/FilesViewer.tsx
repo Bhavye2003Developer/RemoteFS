@@ -1,9 +1,10 @@
 import { DownloadIcon, File, Folder } from "lucide-react";
 import useExpoStore from "~/store/useExpoStore";
-import { formatText } from "~/utils/helper";
 import DeleteItemBtn from "./DeleteItemBtn";
-import { FILETYPE, WSRequestType } from "~/utils/types";
 import useWebsocketStore from "~/store/useWebsocketStore";
+import { FILETYPE, WSRequestType } from "@remotely/utils/types";
+import { formatText } from "@remotely/utils/helpers";
+import { SERVER_PORT, SYSTEM_IP } from "@remotely/utils/constants";
 
 export default function FilesViewer() {
   const { pathFiles, changeDir, searchText } = useExpoStore();
@@ -49,7 +50,7 @@ export default function FilesViewer() {
 
               <div className="flex items-center gap-3">
                 <a
-                  href={`http://localhost:3000/download?fileInfo=${encodeURIComponent(
+                  href={`http://${SYSTEM_IP}:${SERVER_PORT}/download?fileInfo=${encodeURIComponent(
                     JSON.stringify(file)
                   )}`}
                   onClick={(e) => e.stopPropagation()}

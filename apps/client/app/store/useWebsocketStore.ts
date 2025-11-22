@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { SYSTEM_IP, SERVER_PORT } from "@remotely/utils/constants";
 
-const socketURL = `ws://localhost:3000`;
+const socketURL = `ws://${SYSTEM_IP}:${SERVER_PORT}`;
 
 interface WebsocketStore {
   socket: null | WebSocket;

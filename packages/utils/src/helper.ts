@@ -8,7 +8,6 @@ export const formatText = (filename: string, len: number = 20) => {
 
 export const chdir = (curpath: string, dirname: string) => {
   const updatedPath = path.join(curpath, dirname);
-  console.log(updatedPath);
   return updatedPath;
 };
 

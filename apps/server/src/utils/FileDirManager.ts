@@ -1,3 +1,4 @@
+import { FILETYPE, ItemToAdd } from "@remotely/utils/types";
 import {
   closeSync,
   existsSync,
@@ -7,9 +8,7 @@ import {
   rmSync,
   unlinkSync,
 } from "fs";
-// import archiver from "archiver";
 import path from "path";
-import { FILETYPE, ItemToAdd } from "./types";
 
 class FileDirManager {
   async getPathFiles(formattedPath: string) {
@@ -32,10 +31,8 @@ class FileDirManager {
   }
 
   async removeItem(pathToDelete: string, fileType: FILETYPE) {
-    console.log("To Remove: ", pathToDelete, fileType);
     try {
       if (fileType === FILETYPE.FILE) {
-        console.log("Delete File: ", pathToDelete);
         unlinkSync(pathToDelete);
       } else {
         rmSync(pathToDelete, {
@@ -65,38 +62,6 @@ class FileDirManager {
       return 0;
     }
   }
-
-  // generateArchive(files: FileViewType[]) {
-  //   const outputDir = "./output/";
-
-  //   if (!existsSync(outputDir)) {
-  //     console.log("Output dir not found");
-  //     mkdirSync(outputDir);
-  //   }
-
-  //   const zipname = outputDir + new Date().valueOf().toString() + ".zip";
-  //   return new Promise((resolve, reject) => {
-  //     const outputzip = createWriteStream(zipname);
-  //     const archive = archiver("zip", {
-  //       zlib: { level: 9 },
-  //     });
-  //     outputzip.on("close", () => {
-  //       console.log(archive.pointer() + " total bytes");
-  //       resolve(zipname);
-  //     });
-
-  //     archive.pipe(outputzip);
-
-  //     files.forEach((file) => {
-  //       const filename = file.filename;
-  //       const type = file.filetype;
-  //       if (type === FILETYPE.DIR) archive.directory(filename, filename);
-  //       else archive.file(filename, { name: filename });
-  //     });
-
-  //     archive.finalize();
-  //   });
-  // }
 }
 
 export default FileDirManager;

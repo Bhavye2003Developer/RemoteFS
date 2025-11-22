@@ -2,18 +2,25 @@ import express, { Express } from "express";
 import { createServer } from "http";
 import WebSocket from "ws";
 import ClientState from "./utils/ClientState";
-import { FILETYPE, LocFile, WSRequest, WSRequestType } from "./utils/types";
 import WSmanager from "./utils/WSmanager";
 import cors from "cors";
 import path from "path";
 import { generateArchive } from "./utils/helper";
 import { createReadStream } from "fs";
 import multer from "multer";
+import {
+  FILETYPE,
+  LocFile,
+  WSRequest,
+  WSRequestType,
+} from "@remotely/utils/types";
+import { SERVER_PORT, SYSTEM_IP } from "@remotely/utils/constants";
 
 const app: Express = express();
 app.use(cors());
 const server = createServer(app);
-const port = process.env.PORT || 3000;
+const port = SERVER_PORT;
+const host = "0.0.0.0";
 
 const wss = new WebSocket.Server({ server });
 
@@ -28,9 +35,7 @@ wss.on("connection", async (ws, req) => {
   clientStates.push(clientState);
 
   ws.on("message", async (message) => {
-    console.log("GOT MESSAGE: ", message);
     const request: WSRequest = JSON.parse(message as unknown as string);
-    console.log("GOT Request: ", request);
 
     if (request.type === WSRequestType.FETCH) {
       const childDir = request.data.dir || "";
@@ -58,7 +63,6 @@ wss.on("connection", async (ws, req) => {
 app.get("/download", (req, res) => {
   const fileInfoQuery = req.query["fileInfo"] as string;
   const fileInfo: LocFile = JSON.parse(fileInfoQuery);
-  console.log(fileInfo);
 
   res.setHeader("Content-Type", "application/octet-stream");
 
@@ -110,6 +114,6 @@ app.post("/upload", upload.array("ClientFiles", 10), (req, res) => {
   res.status(200).send("File uploaded successfully...");
 });
 
-server.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+server.listen(port, host, () => {
+  console.log(`Server running on http://${SYSTEM_IP}:${port}`);
 });

@@ -1,8 +1,8 @@
 import path from "path";
 import os from "os";
-import { LocFile } from "./types";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
 import archiver from "archiver";
+import { LocFile } from "@remotely/utils/types";
 
 export const formatText = (filename: string, len: number = 20) => {
   if (filename.length > len) return filename.slice(0, len) + "...";
@@ -11,7 +11,6 @@ export const formatText = (filename: string, len: number = 20) => {
 
 export const chdir = (curpath: string, dirname: string) => {
   const updatedPath = path.join(curpath, dirname);
-  console.log(updatedPath);
   return updatedPath;
 };
 

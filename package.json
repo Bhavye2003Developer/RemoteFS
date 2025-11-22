@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "remote_explorer_v2",
   "version": "1.0.0",
   "description": "",
@@ -16,7 +17,7 @@
   "main": "index.js",
   "packageManager": "npm@11.4.2",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx turbo dev"
   },
   "devDependencies": {
     "turbo": "^2.6.1"

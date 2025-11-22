@@ -1,5 +1,5 @@
+import { LocFile } from "@remotely/utils/types";
 import { create } from "zustand";
-import type { ItemToAdd, LocFile } from "~/utils/types";
 
 interface ExpoStore {
   currentPath: string;
