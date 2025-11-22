@@ -35,6 +35,7 @@ class FileDirManager {
     console.log("To Remove: ", pathToDelete, fileType);
     try {
       if (fileType === FILETYPE.FILE) {
+        console.log("Delete File: ", pathToDelete);
         unlinkSync(pathToDelete);
       } else {
         rmSync(pathToDelete, {

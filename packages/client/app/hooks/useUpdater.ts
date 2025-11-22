@@ -4,8 +4,14 @@ import useWebsocketStore from "~/store/useWebsocketStore";
 import { WSRequestType } from "~/utils/types";
 
 const useUpdater = () => {
-  const { updatePath, updatePathFiles, currentDir, updateIsPathChild, step } =
-    useExpoStore();
+  const {
+    updatePath,
+    updatePathFiles,
+    currentDir,
+    updateIsPathChild,
+    step,
+    updateSearchText,
+  } = useExpoStore();
 
   const { connect, disconnect, isConnected, message, sendMessage } =
     useWebsocketStore();
@@ -36,6 +42,7 @@ const useUpdater = () => {
       updatePath(path);
       updatePathFiles(parsedMessage.files);
       updateIsPathChild(parsedMessage.isChild);
+      updateSearchText("");
     }
   }, [message]);
 };

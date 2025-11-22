@@ -1,6 +1,7 @@
 import WebSocket from "ws";
 import ClientState from "./ClientState";
 import { WSRequestType } from "./types";
+import chokidar, { FSWatcher } from "chokidar";
 
 class WSmanager {
   ws: WebSocket;
@@ -13,7 +14,6 @@ class WSmanager {
 
   fetch(path: string = "/") {
     const { files, isChild } = this.clientState.fetchFiles(path);
-    // console.log("IS PATH CHILD: ", isChild);
     files.then((curFiles) => {
       this.ws.send(
         JSON.stringify({

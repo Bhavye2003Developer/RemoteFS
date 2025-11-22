@@ -2,6 +2,7 @@ import path from "path";
 import FileDirManager from "./FileDirManager";
 import { ItemToAdd, LocFile } from "./types";
 import { getHomeDir } from "./helper";
+import { FSWatcher, watch } from "chokidar";
 
 const basePath = getHomeDir();
 
@@ -10,6 +11,7 @@ class ClientState {
   currentPath = basePath;
   pathStack = [this.currentPath];
   fileDirManager = new FileDirManager();
+  watcher: null | FSWatcher = null;
 
   constructor(ip: string | undefined) {
     this.IP = ip || "....";
@@ -31,6 +33,15 @@ class ClientState {
     console.log(this.pathStack, this.currentPath);
 
     const files = this.fileDirManager.getPathFiles(this.currentPath);
+
+    // if (this.watcher) this.watcher.close();
+    // this.watcher = watch(this.currentPath, {
+    //   depth: 0,
+    //   ignoreInitial: true,
+    // }).on("all", () => {
+    //   console.log("changed", this.currentPath);
+    // });
+
     return { files, isChild };
   }
 
@@ -48,9 +59,7 @@ class ClientState {
     return status;
   }
 
-  downloadFile(file: LocFile) {
-    
-  }
+  downloadFile(file: LocFile) {}
 }
 
 export default ClientState;

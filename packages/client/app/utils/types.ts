@@ -18,6 +18,7 @@ export enum WSRequestType {
   "DOWNLOAD",
   "ADD",
   "DELETE",
+  "UPLOAD",
 }
 
 export type WSRequest = {

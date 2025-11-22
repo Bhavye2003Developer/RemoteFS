@@ -8,6 +8,7 @@ import cors from "cors";
 import path from "path";
 import { generateArchive } from "./utils/helper";
 import { createReadStream } from "fs";
+import multer from "multer";
 
 const app: Express = express();
 app.use(cors());
@@ -16,13 +17,18 @@ const port = process.env.PORT || 3000;
 
 const wss = new WebSocket.Server({ server });
 
+const clientStates: ClientState[] = [];
+
 wss.on("connection", async (ws, req) => {
   console.log("Client connected");
   const ip = req.socket.remoteAddress;
   const clientState = new ClientState(ip);
   const wsManager = new WSmanager(ws, clientState);
 
+  clientStates.push(clientState);
+
   ws.on("message", async (message) => {
+    console.log("GOT MESSAGE: ", message);
     const request: WSRequest = JSON.parse(message as unknown as string);
 
     if (request.type === WSRequestType.FETCH) {
@@ -79,6 +85,28 @@ app.get("/download", (req, res) => {
 
     fileStream.pipe(res);
   }
+});
+
+const storage = multer.diskStorage({
+  destination(req, file, callback) {
+    const encodedPath = req.query.path;
+    let path = __dirname;
+    if (encodedPath) path = decodeURIComponent(encodedPath as string);
+    callback(null, path);
+  },
+  filename(req, file, callback) {
+    callback(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
+app.post("/upload", upload.array("ClientFiles", 10), (req, res) => {
+  const files = req.files;
+  if (!files) {
+    return res.status(400).send("No file uploaded.");
+  }
+  res.status(200).send("File uploaded successfully...");
 });
 
 server.listen(port, () => {
