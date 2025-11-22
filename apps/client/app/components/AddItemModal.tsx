@@ -1,4 +1,4 @@
-import { useState, type ReactNode, useEffect } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Dialog,
   DialogContent,
@@ -23,33 +23,30 @@ export default function AddItemModal({
   const [itemName, setItemName] = useState("");
 
   const label = type === "file" ? "Create New File" : "Create New Folder";
-
   const placeholder =
     type === "file" ? "Enter file name..." : "Enter folder name...";
-
-  // Reset input on close
-  useEffect(() => {
-    setItemName("");
-  }, []);
 
   return (
     <Dialog>
       {children}
-      <DialogContent>
+
+      <DialogContent className="rounded-2xl sm:max-w-[90%] sm:p-4">
         <DialogHeader>
-          <DialogTitle>{label}</DialogTitle>
-          <DialogDescription className="pt-3">
+          <DialogTitle className="sm:text-base">{label}</DialogTitle>
+
+          <DialogDescription className="pt-3 sm:text-sm">
             <Input
               autoFocus
               type="text"
               placeholder={placeholder}
               onChange={(e) => setItemName(e.target.value)}
               value={itemName}
+              className="sm:text-sm sm:h-9"
             />
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter>
+        <DialogFooter className="sm:flex sm:justify-end">
           <DialogClose asChild>
             <Button
               onClick={() => {
@@ -58,6 +55,7 @@ export default function AddItemModal({
                 setItemName("");
               }}
               disabled={itemName.trim().length < 1}
+              className="sm:text-sm sm:px-3 sm:py-1.5"
             >
               Create
             </Button>

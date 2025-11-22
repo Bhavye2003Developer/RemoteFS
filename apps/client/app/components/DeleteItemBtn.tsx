@@ -25,31 +25,35 @@ export default function DeleteItemBtn({
       <DialogTrigger
         onClick={(e) => e.stopPropagation()}
         className="
-          p-2 rounded-lg transition
+          p-2 sm:p-1.5
+          rounded-lg transition
           text-red-600 hover:text-white
           hover:bg-red-600
           dark:text-red-400 dark:hover:bg-red-500 dark:hover:text-white
         "
       >
-        <Trash2 size={18} />
+        <Trash2 size={18} className="sm:size-4" />
       </DialogTrigger>
 
-      <DialogContent className="rounded-2xl">
+      <DialogContent className="rounded-2xl sm:max-w-[90%] sm:p-4">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="sm:text-base">
             Are you sure you want to delete{" "}
-            <span className="text-red-600 font-bold">{filename}</span>?
+            <span className="text-red-600 font-bold break-all">{filename}</span>
+            ?
           </DialogTitle>
 
-          <DialogDescription className="pt-3">
+          <DialogDescription className="pt-3 sm:text-sm">
             This action cannot be undone. The file or folder will be permanently
             removed.
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter>
+        <DialogFooter className="sm:flex sm:flex-row sm:justify-end sm:gap-2">
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline" className="sm:text-sm sm:px-3 sm:py-1.5">
+              Cancel
+            </Button>
           </DialogClose>
 
           <DialogClose asChild>
@@ -58,7 +62,10 @@ export default function DeleteItemBtn({
                 e.stopPropagation();
                 deleteItem();
               }}
-              className="bg-red-600 text-white hover:bg-red-700"
+              className="
+                bg-red-600 text-white hover:bg-red-700
+                sm:text-sm sm:px-3 sm:py-1.5
+              "
             >
               Yes, Delete
             </Button>
