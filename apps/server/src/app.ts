@@ -30,6 +30,7 @@ wss.on("connection", async (ws, req) => {
   ws.on("message", async (message) => {
     console.log("GOT MESSAGE: ", message);
     const request: WSRequest = JSON.parse(message as unknown as string);
+    console.log("GOT Request: ", request);
 
     if (request.type === WSRequestType.FETCH) {
       const childDir = request.data.dir || "";

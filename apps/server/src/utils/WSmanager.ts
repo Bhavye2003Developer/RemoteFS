@@ -1,7 +1,6 @@
 import WebSocket from "ws";
 import ClientState from "./ClientState";
 import { WSRequestType } from "./types";
-import chokidar, { FSWatcher } from "chokidar";
 
 class WSmanager {
   ws: WebSocket;

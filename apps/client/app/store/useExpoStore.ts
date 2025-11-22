@@ -3,8 +3,8 @@ import type { ItemToAdd, LocFile } from "~/utils/types";
 
 interface ExpoStore {
   currentPath: string;
-  pathFiles: LocFile[] | null;
   currentDir: string;
+  pathFiles: LocFile[] | null;
   isPathChild: boolean;
   step: number;
   searchText: string;
@@ -19,8 +19,8 @@ interface ExpoStore {
 
 const useExpoStore = create<ExpoStore>((set, get) => ({
   currentPath: "/",
-  pathFiles: [],
   currentDir: "/",
+  pathFiles: [],
   isPathChild: false,
   step: 0,
   searchText: "",

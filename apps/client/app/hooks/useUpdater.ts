@@ -37,12 +37,10 @@ const useUpdater = () => {
     console.log(parsedMessage);
     if (parsedMessage.reqType === WSRequestType.FETCH) {
       const path = parsedMessage.path;
-      console.log("PATH: ", path, currentDir);
-
       updatePath(path);
+      updateSearchText("");
       updatePathFiles(parsedMessage.files);
       updateIsPathChild(parsedMessage.isChild);
-      updateSearchText("");
     }
   }, [message]);
 };

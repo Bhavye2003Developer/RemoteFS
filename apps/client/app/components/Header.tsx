@@ -21,7 +21,6 @@ export default function Header() {
   const onUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    console.log(files);
 
     const formData = new FormData();
     for (let i = 0; i < files.length; ++i)
@@ -37,15 +36,12 @@ export default function Header() {
       );
 
       if (response.ok) {
-        console.log(await response.text());
-        sendMessage(
-          sendMessage({
-            type: WSRequestType.FETCH,
-            data: {
-              dir: "/",
-            },
-          })
-        );
+        sendMessage({
+          type: WSRequestType.FETCH,
+          data: {
+            dir: "/",
+          },
+        });
       }
     } catch (err) {
       console.log(err);
