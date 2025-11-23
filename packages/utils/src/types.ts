@@ -27,6 +27,7 @@ export type WSRequest = {
     file?: LocFile | null;
     itemToBeAdded?: ItemToAdd;
   };
+  message?: string;
 };
 
 export type ItemToAdd = {

@@ -38,7 +38,7 @@ const useExpoStore = create<ExpoStore>((set, get) => ({
   goToPrevPath() {
     set((state) => ({
       ...state,
-      currentDir: undefined,
+      currentDir: "-",
       step: state.step + 1,
     }));
   },

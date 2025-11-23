@@ -13,7 +13,7 @@ class WSmanager {
     this.clientState = clientState;
   }
 
-  async fetch(path: string = "/") {
+  async fetch(message: string | null, path: string | null) {
     const { currentPath, files, isChild } =
       await this.clientState.fetchFiles(path);
 
@@ -22,7 +22,7 @@ class WSmanager {
       depth: 0,
       ignoreInitial: true,
     }).on("all", () => {
-      this.fetch();
+      this.fetch("CurrentPath files updated.", null);
     });
 
     this.ws.send(
@@ -31,6 +31,7 @@ class WSmanager {
         path: this.clientState.currentPath,
         isChild,
         files,
+        message,
       })
     );
   }

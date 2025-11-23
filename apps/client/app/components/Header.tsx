@@ -10,6 +10,7 @@ import { useRef } from "react";
 import { FILETYPE, WSRequestType } from "@remotely/utils/types";
 import { formatText } from "@remotely/utils/helpers";
 import { SERVER_PORT, SYSTEM_IP } from "@remotely/utils/constants";
+import { toast } from "sonner";
 
 export default function Header() {
   const { currentPath, goToPrevPath, isPathChild } = useExpoStore();
@@ -40,8 +41,13 @@ export default function Header() {
         { method: "POST", body: formData }
       );
 
+      const message = await response.text();
+      toast(message, {
+        duration: 3000,
+      });
+
       if (response.ok) {
-        sendMessage({ type: WSRequestType.FETCH, data: { dir: "/" } });
+        sendMessage({ type: WSRequestType.FETCH, data: { dir: null } });
       }
     } catch (err) {
       console.log(err);

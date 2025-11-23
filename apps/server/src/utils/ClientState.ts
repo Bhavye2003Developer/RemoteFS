@@ -8,24 +8,31 @@ const basePath = getHomeDir();
 class ClientState {
   IP = "";
   currentPath = basePath;
-  pathStack = [this.currentPath];
+  pathStack = [basePath];
   fileDirManager = new FileDirManager();
 
   constructor(ip: string | undefined) {
     this.IP = ip || "....";
   }
 
-  async fetchFiles(dir: string) {
-    if (dir && dir !== "/") {
-      const updatedPath = path.join(this.currentPath, dir);
-      this.currentPath = updatedPath;
-      this.pathStack.push(this.currentPath);
-    } else if (!dir) {
+  async fetchFiles(dir: string | null) {
+    if (dir == "-") {
       this.pathStack.pop();
       const prevPath = this.pathStack[this.pathStack.length - 1] || basePath;
       this.currentPath = prevPath;
+    } else if (dir && dir !== "/") {
+      const updatedPath = path.join(this.currentPath, dir);
+      this.currentPath = updatedPath;
+      this.pathStack.push(updatedPath);
+    } else if (dir == "/") {
+      this.currentPath = basePath;
+      this.pathStack = [basePath];
     }
+
     const isChild = this.pathStack.length > 1;
+
+    console.log(this.currentPath, this.pathStack);
+
     const files = await this.fileDirManager.getPathFiles(this.currentPath);
     return { currentPath: this.currentPath, files, isChild };
   }

@@ -38,22 +38,22 @@ wss.on("connection", async (ws, req) => {
     const request: WSRequest = JSON.parse(message as unknown as string);
 
     if (request.type === WSRequestType.FETCH) {
-      const childDir = request.data.dir || "";
-      wsManager.fetch(childDir);
+      const childDir = request.data.dir || null;
+      wsManager.fetch(null, childDir);
     } else if (request.type === WSRequestType.DELETE) {
       const file = request.data.file || null;
       const status = await clientState.removeFile(file);
       if (status === 1 && file) {
-        console.log("File/ Folder successfully deleted.", file.name);
-        wsManager.fetch();
+        // console.log("File/ Folder successfully deleted.", file.name);
+        wsManager.fetch("File/ Folder successfully deleted.", null);
       }
     } else if (request.type === WSRequestType.ADD) {
       const itemToAdd = request.data.itemToBeAdded || null;
       if (itemToAdd) {
         const status = await clientState.addItem(itemToAdd);
         if (status === 1) {
-          console.log("File/ Folder created successfully", itemToAdd.name);
-          wsManager.fetch();
+          // console.log("File/ Folder created successfully", itemToAdd.name);
+          wsManager.fetch("File/ Folder created successfully", null);
         }
       }
     }
