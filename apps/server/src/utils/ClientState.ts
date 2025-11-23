@@ -10,13 +10,12 @@ class ClientState {
   currentPath = basePath;
   pathStack = [this.currentPath];
   fileDirManager = new FileDirManager();
-  // watcher: null | FSWatcher = null;
 
   constructor(ip: string | undefined) {
     this.IP = ip || "....";
   }
 
-  fetchFiles(dir: string) {
+  async fetchFiles(dir: string) {
     if (dir && dir !== "/") {
       const updatedPath = path.join(this.currentPath, dir);
       this.currentPath = updatedPath;
@@ -26,19 +25,9 @@ class ClientState {
       const prevPath = this.pathStack[this.pathStack.length - 1] || basePath;
       this.currentPath = prevPath;
     }
-
     const isChild = this.pathStack.length > 1;
-
-    const files = this.fileDirManager.getPathFiles(this.currentPath);
-
-    // if (this.watcher) this.watcher.close();
-    // this.watcher = watch(this.currentPath, {
-    //   depth: 0,
-    //   ignoreInitial: true,
-    // }).on("all", () => {
-    // });
-
-    return { files, isChild };
+    const files = await this.fileDirManager.getPathFiles(this.currentPath);
+    return { currentPath: this.currentPath, files, isChild };
   }
 
   removeFile(file: LocFile | null) {
