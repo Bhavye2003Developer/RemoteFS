@@ -3,11 +3,15 @@ import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Remote Explorer" },
+    { name: "description", content: "Sleek monochrome file explorer" },
   ];
 }
 
 export default function Home() {
-  return <Explorer />;
+  return (
+    <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100 transition-colors">
+      <Explorer />
+    </div>
+  );
 }

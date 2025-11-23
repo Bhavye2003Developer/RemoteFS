@@ -21,7 +21,6 @@ export default function AddItemModal({
   type: "file" | "folder";
 }) {
   const [itemName, setItemName] = useState("");
-
   const label = type === "file" ? "Create New File" : "Create New Folder";
   const placeholder =
     type === "file" ? "Enter file name..." : "Enter folder name...";
@@ -30,18 +29,18 @@ export default function AddItemModal({
     <Dialog>
       {children}
 
-      <DialogContent className="rounded-2xl sm:max-w-[90%] sm:p-4">
+      <DialogContent className="rounded-2xl sm:p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <DialogHeader>
           <DialogTitle className="sm:text-base">{label}</DialogTitle>
 
-          <DialogDescription className="pt-3 sm:text-sm">
+          <DialogDescription className="pt-3 sm:text-sm text-gray-700 dark:text-gray-300">
             <Input
               autoFocus
               type="text"
               placeholder={placeholder}
               onChange={(e) => setItemName(e.target.value)}
               value={itemName}
-              className="sm:text-sm sm:h-9"
+              className="sm:text-sm sm:h-9 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </DialogDescription>
         </DialogHeader>
@@ -50,12 +49,12 @@ export default function AddItemModal({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                if (itemName.trim().length === 0) return;
+                if (!itemName.trim()) return;
                 createItem(itemName.trim());
                 setItemName("");
               }}
               disabled={itemName.trim().length < 1}
-              className="sm:text-sm sm:px-3 sm:py-1.5"
+              className="sm:px-3 sm:py-1.5 bg-gray-900 text-white hover:bg-gray-800"
             >
               Create
             </Button>

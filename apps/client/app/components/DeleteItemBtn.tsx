@@ -24,34 +24,26 @@ export default function DeleteItemBtn({
     <Dialog>
       <DialogTrigger
         onClick={(e) => e.stopPropagation()}
-        className="
-          p-2 sm:p-1.5
-          rounded-lg transition
-          text-red-600 hover:text-white
-          hover:bg-red-600
-          dark:text-red-400 dark:hover:bg-red-500 dark:hover:text-white
-        "
+        className="p-2 sm:p-1.5 rounded-lg text-red-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
       >
-        <Trash2 size={18} className="sm:size-4" />
+        <Trash2 className="w-4 h-4" />
       </DialogTrigger>
 
-      <DialogContent className="rounded-2xl sm:max-w-[90%] sm:p-4">
+      <DialogContent className="rounded-2xl sm:p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <DialogHeader>
           <DialogTitle className="sm:text-base">
-            Are you sure you want to delete{" "}
-            <span className="text-red-600 font-bold break-all">{filename}</span>
-            ?
+            Delete <span className="font-semibold">{filename}</span>?
           </DialogTitle>
 
-          <DialogDescription className="pt-3 sm:text-sm">
+          <DialogDescription className="pt-3 sm:text-sm text-gray-700 dark:text-gray-300">
             This action cannot be undone. The file or folder will be permanently
             removed.
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="sm:flex sm:flex-row sm:justify-end sm:gap-2">
+        <DialogFooter className="sm:flex sm:justify-end sm:gap-2">
           <DialogClose asChild>
-            <Button variant="outline" className="sm:text-sm sm:px-3 sm:py-1.5">
+            <Button variant="outline" className="sm:px-3 sm:py-1.5">
               Cancel
             </Button>
           </DialogClose>
@@ -62,10 +54,7 @@ export default function DeleteItemBtn({
                 e.stopPropagation();
                 deleteItem();
               }}
-              className="
-                bg-red-600 text-white hover:bg-red-700
-                sm:text-sm sm:px-3 sm:py-1.5
-              "
+              className="sm:px-3 sm:py-1.5 bg-gray-800 text-white hover:bg-gray-700"
             >
               Yes, Delete
             </Button>
