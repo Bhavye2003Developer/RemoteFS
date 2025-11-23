@@ -2,6 +2,8 @@
 
 A lightweight local-network file management application for browsing, uploading, downloading, and managing files on a host machine from any device on your LAN.
 
+![WhatsApp Image 2025-11-23 at 15 46 48_69ceeb5e](https://github.com/user-attachments/assets/9e60ae4b-92cc-4955-bb7a-156ab406f94f)
+
 ## Overview
 
 RemoteFS provides a clean web interface for essential file system operations with real-time updates. Built for home networks, internal tools, and lightweight remote management scenarios.
