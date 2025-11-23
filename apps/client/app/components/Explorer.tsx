@@ -20,9 +20,18 @@ const Explorer = () => {
           bg-gray-50 dark:bg-gray-900
           shadow-sm dark:shadow-black/30
           p-3 sm:p-6
-          space-y-4
+          space-y-5
         "
       >
+        <div className="text-center pb-1">
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
+            RemoteFS
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            Local File System Explorer
+          </p>
+        </div>
+
         <Header />
 
         <div>

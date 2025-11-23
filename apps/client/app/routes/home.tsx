@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Remote Explorer" },
+    { title: "RemoteFS" },
     { name: "description", content: "Sleek monochrome file explorer" },
   ];
 }
