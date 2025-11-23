@@ -2,7 +2,7 @@
 
 A lightweight local-network file management application for browsing, uploading, downloading, and managing files on a host machine from any device on your LAN.
 
-![WhatsApp Image 2025-11-23 at 15 46 48_69ceeb5e](https://github.com/user-attachments/assets/9e60ae4b-92cc-4955-bb7a-156ab406f94f)
+<p><img src="https://github.com/user-attachments/assets/9e60ae4b-92cc-4955-bb7a-156ab406f94f" alt="RemoteFS UI" width="800"></p>
 
 ## Overview
 
