@@ -93,8 +93,8 @@ The build system will automatically initialize both applications.
 
 Access the application:
 
-- **Desktop**: `http://<your-ip>:5173`
-- **Mobile**: `http://<your-ip>:5173` (same network required)
+- **Desktop**: `http://<your-ip>:5555`
+- **Mobile**: `http://<your-ip>:5555` (same network required)
 
 ## Architecture
 
