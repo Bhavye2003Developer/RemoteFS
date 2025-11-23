@@ -17,5 +17,8 @@
   "devDependencies": {
     "@types/node": "^22.19.1",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "internal-ip": "^8.0.1"
   }
 }
