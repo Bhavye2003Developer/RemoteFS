@@ -61,8 +61,8 @@ turbo.json          # Turborepo configuration
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd remotefs
+git clone https://github.com/Bhavye2003Developer/RemoteFS.git
+cd RemoteFS
 
 # Install dependencies
 npm install
