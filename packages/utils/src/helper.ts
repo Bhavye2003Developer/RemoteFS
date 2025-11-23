@@ -15,3 +15,12 @@ export function getHomeDir() {
   const homedir = os.homedir();
   return homedir;
 }
+
+export function generateHash(data: string) {
+  let hash = 0;
+  for (const char of data) {
+    hash = (hash << 5) - hash + char.charCodeAt(0);
+    hash |= 0;
+  }
+  return hash;
+}

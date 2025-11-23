@@ -5,7 +5,7 @@ import ClientState from "./utils/ClientState";
 import WSmanager from "./utils/WSmanager";
 import cors from "cors";
 import path from "path";
-import { generateArchive } from "./utils/helper";
+import { generateArchive, generatePasscodeHash } from "./utils/helper";
 import { createReadStream } from "fs";
 import multer from "multer";
 import {
@@ -25,6 +25,13 @@ const host = "0.0.0.0";
 const wss = new WebSocket.Server({ server });
 
 const clientStates: ClientState[] = [];
+
+app.get("/code", (req, res) => {
+  const passcodeHash = generatePasscodeHash();
+  res.json({
+    code: passcodeHash,
+  });
+});
 
 wss.on("connection", async (ws, req) => {
   console.log("Client connected");

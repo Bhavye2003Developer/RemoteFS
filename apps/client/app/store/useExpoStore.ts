@@ -8,6 +8,7 @@ interface ExpoStore {
   isPathChild: boolean;
   step: number;
   searchText: string;
+  isClientVerified: boolean;
 
   updatePath: (updatedPath: string) => void;
   updatePathFiles: (files: LocFile[] | null) => void;
@@ -15,6 +16,7 @@ interface ExpoStore {
   changeDir: (dir: string) => void;
   updateIsPathChild: (isPathChild: boolean) => void;
   updateSearchText: (text: string) => void;
+  toggleClientVerified: () => void;
 }
 
 const useExpoStore = create<ExpoStore>((set, get) => ({
@@ -24,6 +26,7 @@ const useExpoStore = create<ExpoStore>((set, get) => ({
   isPathChild: false,
   step: 0,
   searchText: "",
+  isClientVerified: false,
 
   updatePath(updatedPath) {
     set((state) => ({
@@ -54,6 +57,9 @@ const useExpoStore = create<ExpoStore>((set, get) => ({
   },
   updateSearchText(text) {
     set((state) => ({ ...state, searchText: text }));
+  },
+  toggleClientVerified() {
+    set((state) => ({ ...state, isClientVerified: !state.isClientVerified }));
   },
 }));
 

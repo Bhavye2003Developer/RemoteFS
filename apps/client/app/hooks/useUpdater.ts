@@ -12,15 +12,16 @@ const useUpdater = () => {
     updateIsPathChild,
     step,
     updateSearchText,
+    isClientVerified,
   } = useExpoStore();
 
   const { connect, disconnect, isConnected, message, sendMessage } =
     useWebsocketStore();
 
   useEffect(() => {
-    connect();
+    if (isClientVerified) connect();
     return disconnect;
-  }, []);
+  }, [isClientVerified]);
 
   useEffect(() => {
     if (isConnected) {

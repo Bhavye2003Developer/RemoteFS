@@ -1,7 +1,7 @@
 import path from "path";
 import FileDirManager from "./FileDirManager";
-import { getHomeDir } from "./helper";
 import { ItemToAdd, LocFile } from "@remotely/utils/types";
+import { getHomeDir } from "@remotely/utils/helpers";
 
 const basePath = getHomeDir();
 

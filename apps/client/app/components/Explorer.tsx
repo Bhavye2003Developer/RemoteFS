@@ -4,9 +4,10 @@ import FilesViewer from "./FilesViewer";
 import Header from "./Header";
 import useExpoStore from "~/store/useExpoStore";
 import useUpdater from "~/hooks/useUpdater";
+import PasscodeInput from "./PasscodeInput";
 
 const Explorer = () => {
-  const { pathFiles } = useExpoStore();
+  const { pathFiles, isClientVerified } = useExpoStore();
   useUpdater();
 
   return (
@@ -32,11 +33,13 @@ const Explorer = () => {
           </p>
         </div>
 
-        <Header />
-
-        <div>
-          <div
-            className="
+        {isClientVerified ? (
+          <div>
+            <Header />
+            <div>
+              <div
+                className="
+              mt-3
               rounded-lg sm:rounded-xl
               border border-gray-200 dark:border-gray-800
               bg-white dark:bg-gray-900
@@ -44,16 +47,20 @@ const Explorer = () => {
               space-y-2
               transition-colors
             "
-          >
-            {!pathFiles || pathFiles.length === 0 ? (
-              <p className="text-gray-500 dark:text-gray-400 text-center py-6 sm:py-10 text-sm sm:text-base">
-                No files found...
-              </p>
-            ) : (
-              <FilesViewer />
-            )}
+              >
+                {!pathFiles || pathFiles.length === 0 ? (
+                  <p className="text-gray-500 dark:text-gray-400 text-center py-6 sm:py-10 text-sm sm:text-base">
+                    No files found...
+                  </p>
+                ) : (
+                  <FilesViewer />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <PasscodeInput />
+        )}
       </div>
     </div>
   );

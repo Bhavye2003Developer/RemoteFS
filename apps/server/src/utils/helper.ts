@@ -1,22 +1,15 @@
-import path from "path";
-import os from "os";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
 import archiver from "archiver";
 import { LocFile } from "@remotely/utils/types";
+import { generateHash } from "@remotely/utils/helpers";
 
-export const formatText = (filename: string, len: number = 20) => {
-  if (filename.length > len) return filename.slice(0, len) + "...";
-  return filename;
-};
-
-export const chdir = (curpath: string, dirname: string) => {
-  const updatedPath = path.join(curpath, dirname);
-  return updatedPath;
-};
-
-export function getHomeDir() {
-  const homedir = os.homedir();
-  return homedir;
+export function generatePasscodeHash() {
+  const min = 100000;
+  const max = 999999;
+  const passcode = "" + (Math.floor(Math.random() * (max - min + 1)) + min);
+  console.log("Client Password: ", passcode);
+  const passcodeHash = generateHash(passcode);
+  return passcodeHash;
 }
 
 export function generateArchive(file: LocFile) {
