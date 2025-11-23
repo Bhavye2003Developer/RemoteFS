@@ -6,10 +6,11 @@ A lightweight local-network file management application for browsing, uploading,
 
 ## Overview
 
-RemoteFS provides a clean web interface for essential file system operations with real-time updates. Built for home networks, internal tools, and lightweight remote management scenarios.
+RemoteFS provides a clean web interface for essential file system operations with real-time updates. Built for home networks, internal tools, and lightweight remote management scenarios with passcode-based authentication for secure access.
 
 ## Features
 
+- **Passcode authentication**: Secure access with one-time passcode shown in server CLI
 - **Real-time sync** via WebSocket connections
 - **Auto-refresh** on file system changes using Chokidar
 - **File operations**: upload, download, create, delete
@@ -96,16 +97,19 @@ Access the application:
 - **Desktop**: `http://<your-ip>:5555`
 - **Mobile**: `http://<your-ip>:5555` (same network required)
 
+**Authentication**: Enter the passcode shown in the server CLI when prompted to access the file explorer.
+
 ## Architecture
 
 RemoteFS uses a WebSocket-based architecture for real-time communication:
 
-1. Client establishes persistent WebSocket connection
-2. Chokidar watches the current directory for file system changes
-3. File operations trigger WebSocket messages
-4. Server processes filesystem changes (folders compressed using Archiver for download)
-5. Server broadcasts updates to connected clients
-6. UI automatically refreshes
+1. User accesses the application and enters the passcode displayed in server CLI
+2. Client establishes persistent WebSocket connection
+3. Chokidar watches the current directory for file system changes
+4. File operations trigger WebSocket messages
+5. Server processes filesystem changes (folders compressed using Archiver for download)
+6. Server broadcasts updates to connected clients
+7. UI automatically refreshes
 
 ### API
 
@@ -120,6 +124,12 @@ RemoteFS uses a WebSocket-based architecture for real-time communication:
 - `ADD` - Create file or folder
 - `DELETE` - Remove file or folder
 - `DOWNLOAD` - Download file or folder
+
+**Security**
+
+- Passcode-based authentication protects against unauthorized access
+- Passcode is generated on server startup and displayed in CLI
+- Access is restricted to devices on the same local network
 
 ## License
 
