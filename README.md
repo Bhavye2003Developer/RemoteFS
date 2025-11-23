@@ -2,6 +2,8 @@
 
 A lightweight local-network file management application for browsing, uploading, downloading, and managing files on a host machine from any device on your LAN.
 
+<p><img src="https://github.com/user-attachments/assets/9e60ae4b-92cc-4955-bb7a-156ab406f94f" alt="RemoteFS UI" width="300"></p>
+
 ## Overview
 
 RemoteFS provides a clean web interface for essential file system operations with real-time updates. Built for home networks, internal tools, and lightweight remote management scenarios.
@@ -59,8 +61,8 @@ turbo.json          # Turborepo configuration
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd remotefs
+git clone https://github.com/Bhavye2003Developer/RemoteFS.git
+cd RemoteFS
 
 # Install dependencies
 npm install
@@ -91,8 +93,8 @@ The build system will automatically initialize both applications.
 
 Access the application:
 
-- **Desktop**: `http://<your-ip>:5173`
-- **Mobile**: `http://<your-ip>:5173` (same network required)
+- **Desktop**: `http://<your-ip>:5555`
+- **Mobile**: `http://<your-ip>:5555` (same network required)
 
 ## Architecture
 
